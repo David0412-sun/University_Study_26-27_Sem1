@@ -1,0 +1,43 @@
+\section*{Question 1}
+\noindent\textit{English main text: \QoneWords\ words.}
+\subsection*{(1) Framework and data transfer}
+An intelligent autonomous unmanned system turns a human objective into physical action through connected sensing, planning and control loops. A ground control station (GCS), with a human-machine interface (HMI), accepts the user's objective, operating constraints and intervention commands. Mission planning, potentially assisted by artificial intelligence, decomposes this objective into tasks, determines their sequence and completion conditions, and passes the current task to motion planning (\citealp[pp. 21-22]{Chen2022}).
+
+Executing these tasks requires an updated understanding of the vehicle and its surroundings. Sensors on the hardware platform supply measurements to perception and positioning. Perception extracts obstacles and relevant objects, while state estimation produces pose and velocity. Simultaneous localisation and mapping (SLAM) jointly estimates the vehicle's pose and constructs or updates an environmental map (\citealp{Cadena2016}). Estimated states feed both planning and control; maps, obstacle information and target locations inform planning.
+
+With this information, motion planning converts the assigned task into a collision-free route and a time-parameterised trajectory. Desired position, velocity, acceleration and yaw become references for flight control, subject to obstacle clearance and vehicle limits (\citealp{Mellinger2011}). This connection also carries feedback: an infeasible route, changed obstacle or completed movement can prompt mission planning to revise the task sequence. Thus, the task planner decides what to do, while the motion planner determines how movement can achieve it.
+
+The controller then converts these references into actuator commands using state feedback and a model relating inputs to vehicle dynamics. For an unmanned aerial vehicle (UAV), the outer loop tracks position and velocity, while the inner loop stabilises attitude (\citealp[p. 20]{Chen2022}). Motors and other actuators move the hardware platform, whose resulting motion produces new sensor measurements. This closes the physical feedback loop and allows the controller to correct tracking errors and respond to disturbances.
+
+Alongside vehicle control, application data processing converts observations into useful outputs, such as inspection images or delivery records. Communications carry commands from the GCS and return results, progress and warnings to the user (\citealp[p. 21, Fig. 2]{Chen2022}). Remaining energy and communication availability must also inform mission decisions, connecting the supporting hardware and communication functions to the feasibility of continued operation.
+
+
+
+\Needspace{8\baselineskip}
+\subsection*{(2) Levels of autonomy}
+Within this framework, autonomy depends on how decision responsibility is shared between people and the system. The four levels in the U.S. Department of Defense taxonomy describe this allocation (\citealp[p. 46, Table 3]{DoD2011}). Applying them to familiar operating examples, Level 1, Human-Operated, places all operational decisions with the human. A remotely piloted model aircraft illustrates this when its pilot continually selects the route, manoeuvres and landing actions. The communication link lets the pilot control the aircraft from a distance.
+
+At Level 2, Human-Delegated, the operator authorises particular automated functions. A camera drone pilot may activate automatic take-off or position holding while deciding the overall flight sequence and when each function should stop. Responsibility has therefore shifted for an individual operation, but the human still coordinates the mission and selects the next action.
+
+Level 3, Human-Supervised, extends this delegation to sensor-informed execution of directed tasks under human oversight. For example, a surveying UAV can carry out an approved imaging mission while its operator monitors progress and provides guidance. The system may adjust its actions within the permitted task, and the operator can initiate changes or intervene. Supervision therefore remains part of normal mission operation.
+
+At Level 4, Fully Autonomous, the human specifies goals and the system translates them into tasks and executes them without routine human interaction. A mapping robot vacuum illustrates this within a bounded indoor cleaning task when it plans coverage, avoids obstacles and returns to its charger. Emergency intervention or changes to the goals remain possible under the definition (\citealp[p. 46]{DoD2011}). Consequently, autonomy should be assessed for a specified task and operating domain: the same vehicle can use different levels in different modes, and automatic control alone does not establish full autonomy.
+
+
+%TC:ignore
+\begin{figure}[htbp]
+\centering
+\ReplaceableGraphic{fig1_framework}{\input{figures/tikz/fig1_framework.tex}}
+\caption{Original schematic based on the autonomous-system architecture in \citet[p. 21, Fig. 2]{Chen2022}. Arrows show information types and decision feedback.}
+\label{fig:framework}
+\end{figure}
+%TC:endignore
+
+%TC:ignore
+\begin{table}[H]
+\centering
+\caption{Four autonomy levels from \citet[p. 46, Table 3]{DoD2011}. The operating examples are illustrative applications of the taxonomy.}
+\label{tab:autonomy}
+\ReplaceableGraphic{tab1_autonomy}{\input{tables/tab1_autonomy.tex}}
+\end{table}
+%TC:endignore

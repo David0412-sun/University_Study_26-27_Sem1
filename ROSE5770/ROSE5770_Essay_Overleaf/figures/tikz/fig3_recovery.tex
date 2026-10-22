@@ -1,0 +1,103 @@
+\begin{tikzpicture}[
+  font=\sffamily\fontsize{8.5}{10.2}\selectfont,
+  arr/.style={-{Latex[length=2.1mm,width=1.4mm]},line width=.8pt},
+  dim/.style={{Latex[length=1.6mm,width=1.1mm]}-{Latex[length=1.6mm,width=1.1mm]},
+    line width=.65pt,draw=black!65},
+  lab/.style={align=center,fill=white,inner sep=2pt},
+  faint/.style={draw=black!45,dashed,line width=.65pt}
+]
+  \node[font=\sffamily\bfseries\fontsize{9}{11}\selectfont]
+    at (4.65,6.25) {Side view: level deck with straight motion};
+  \node[align=center] at (4.9,5.65)
+    {Track the moving deck while descending\\
+     $\mathbf v_{U,xy}\approx\mathbf v_{D,xy}$};
+
+  % A single z-up world frame is used by both vehicle states.
+  \draw[black!35,line width=.65pt] (.25,.6) -- (9.1,.6);
+  \draw[arr] (.6,.6) -- (1.8,.6) node[right] {$x$};
+  \draw[arr] (.6,.6) -- (.6,1.8) node[above] {$z$};
+  \node[anchor=west,align=left,text width=2.5cm] at (.3,-.12)
+    {World frame: $z$ up};
+
+  % Moving UGV and its recovery deck.
+  \draw[draw=black!65,fill=blue!5,line width=.8pt]
+    (2.5,1.15) rectangle (7.7,1.8);
+  \draw[draw=black!65,fill=blue!5,line width=.8pt]
+    (7.7,1.15) -- (8.5,1.15) -- (8.5,1.5) -- (8.1,1.8) -- (7.7,1.8) -- cycle;
+  \draw[black!65] (7.85,1.7) -- (8.05,1.7) -- (8.3,1.5) -- (7.85,1.5) -- cycle;
+  \foreach \xx in {3.1,7.75}{
+    \draw[draw=black!65,fill=white,line width=.8pt] (\xx,.91) circle (.27);
+    \fill[black!55] (\xx,.91) circle (.055);
+  }
+  \node at (5.1,1.42) {Moving UGV};
+  \draw[draw=blue!55!black,fill=blue!15,line width=1pt]
+    (4.35,1.79) rectangle (5.45,1.85);
+  \fill[blue!65!black] (4.9,1.85) circle (.055);
+  \node[anchor=west,lab] at (5.55,2.05) {$\mathbf p_D(t)$: deck target};
+  \draw[arr,draw=blue!65!black] (7.75,2.15) -- (9.05,2.15)
+    node[midway,above] {$\mathbf v_{D,xy}$};
+
+  % The UAV glyph is centred at its centre of mass; feet lie 0.75 units below it.
+  \def\recoveryuav{%
+    \draw[line width=.8pt] (-.82,0) -- (.82,0);
+    \draw[fill=white,line width=.8pt] (-.38,-.13) rectangle (.38,.13);
+    \draw[line width=.8pt] (-.8,.04) ellipse (.34 and .065);
+    \draw[line width=.8pt] (.8,.04) ellipse (.34 and .065);
+    \draw[line width=.8pt] (-.27,-.13) -- (-.45,-.75) -- (-.7,-.75);
+    \draw[line width=.8pt] (.27,-.13) -- (.45,-.75) -- (.7,-.75);
+  }
+  \begin{scope}[shift={(4.9,4.8)},draw=blue!65!black]
+    \recoveryuav
+    \fill[blue!65!black] (0,0) circle (.055);
+  \end{scope}
+  \node[lab] at (4.9,5.15) {UAV COM: $\mathbf p_U(t)$};
+  \draw[arr,draw=blue!65!black] (6.2,4.8) -- (8.6,4.8)
+    node[midway,above] {$\mathbf v_{U,xy}$};
+
+  \begin{scope}[shift={(4.9,2.6)},draw=black!45,dashed]
+    \recoveryuav
+    \fill[black!50] (0,0) circle (.055);
+  \end{scope}
+  \draw[faint] (4.9,4.63) -- (4.9,2.75);
+  \draw[arr,draw=orange!75!black] (5.7,3.95) -- (5.7,3.0);
+  \node[anchor=west,align=left,text width=2.8cm] at (6.0,3.55)
+    {Controlled descent;\\vertical relative speed\\approaches zero\\at touchdown};
+
+  % Heights refer to centre of mass, not to the landing-gear contact point.
+  \draw[faint] (2.15,4.8) -- (3.35,4.8);
+  \draw[faint] (2.15,1.85) -- (4.25,1.85);
+  \draw[dim] (2.2,1.85) -- node[left,lab] {$h(t)$} (2.2,4.8);
+  \draw[faint] (3.25,2.6) -- (3.7,2.6);
+  \draw[dim] (3.3,1.85) -- node[left,lab] {$h_{\rm td}>0$} (3.3,2.6);
+  \node[align=center,text width=5.8cm] at (6.1,-.12)
+    {$h(t)\downarrow h_{\rm td}$, the COM clearance at contact.};
+
+  % Compact top view makes the horizontal alignment condition explicit.
+  \draw[draw=black!35,rounded corners=3pt,line width=.6pt,fill=black!1]
+    (9.6,.55) rectangle (14.95,6.55);
+  \node[font=\sffamily\bfseries\fontsize{9}{11}\selectfont]
+    at (12.275,6.25) {Top view: horizontal alignment};
+  \draw[draw=black!55,fill=blue!5,line width=.7pt]
+    (10.35,3.7) rectangle (14.2,5.35);
+  \draw[faint] (12.15,4.5) circle (.49);
+  \draw[draw=blue!65!black,line width=.9pt]
+    (11.98,4.5) -- (12.32,4.5) (12.15,4.33) -- (12.15,4.67);
+  \fill[blue!65!black] (12.15,4.5) circle (.04);
+  \fill[orange!80!black] (12.55,4.76) circle (.06);
+  \draw[arr,draw=orange!80!black] (12.17,4.52) -- (12.5,4.73);
+  \node[anchor=east,lab] at (12.02,5.03) {$\mathbf e_{xy}$};
+  \draw[arr,draw=blue!65!black] (12.25,4.35) -- (13.85,4.35);
+  \draw[arr,draw=orange!80!black] (12.65,4.98) -- (14.25,4.98);
+  \node[font=\sffamily\fontsize{8}{9.5}\selectfont,align=center,
+        text width=4.7cm] at (12.28,3.35)
+    {Cross: deck target; dot: UAV.\\Arrows: horizontal velocity.};
+
+  \node at (12.275,2.8) {\textbf{Permit descent only if}};
+  \node at (12.275,2.35) {$\|\mathbf e_{xy}\|\leq\varepsilon_p$};
+  \node at (12.275,1.9)
+    {$\|\mathbf v_{U,xy}-\mathbf v_{D,xy}\|\leq\varepsilon_v$};
+  \node at (12.275,1.4) {Reliable pose; clear deck.};
+  \node[align=center,font=\sffamily\fontsize{8}{9.5}\selectfont,
+        text width=4.6cm] at (12.275,.88)
+    {$U$: UAV COM; $D$: deck target.};
+\end{tikzpicture}

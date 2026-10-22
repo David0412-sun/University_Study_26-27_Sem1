@@ -1,0 +1,14 @@
+{\small\renewcommand{\arraystretch}{1.22}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
+\toprule
+\textbf{Module} & \textbf{Required feature} & \textbf{Example method} \\
+\midrule
+Hardware and sensors & Loaded flight, controlled deposition and physical confirmation. & Winch with load/contact release interlock. \\
+Perception/data processing & Candidates, obstacles, target identity and evidence. & Adapted YOLO plus registered identifier check. \\
+Positioning/SLAM & Vehicle state, map and deck-relative pose. & EKF; calibrated marker PnP near the deck. \\
+Mission/task planning & Sequencing, action conditions and recovery choices. & Behaviour tree with bounded retry/fallback. \\
+Motion planning & Collision-free, dynamically feasible timed references. & A* and constrained minimum-snap trajectory. \\
+Modelling/control & Stable tracking and feasible motor commands. & Cascaded P/PID, feedforward and allocation. \\
+GCS/HMI, communication and results & Mission input, vehicle updates and received delivery records. & MAVLink plus application acknowledgement. \\
+\bottomrule
+\end{tabular}}

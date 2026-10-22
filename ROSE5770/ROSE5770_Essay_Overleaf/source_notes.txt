@@ -1,0 +1,80 @@
+SOURCE AND ATTRIBUTION NOTES
+Technical citations in this revision refer to original publications and official documentation, not lecture slides.
+The source mapping distinguishes works explicitly identified in the supplied material from additional primary references. Exact slide provenance is not claimed for the added sources.
+Published years and journal/conference records are used instead of preprint upload dates. Page locators refer to original printed pages, not uploaded lecture PDFs.
+
+Framework and data flow
+References: Chen2022
+Location/topic: pp. 20-22; Fig. 2 on p. 21
+Original article explicitly identified in the supplied material.
+Attribution boundary: Our diagram is a newly drawn schematic of the architecture.
+
+Four autonomy levels
+References: DoD2011
+Location/topic: Section 5.4.1; Table 3, printed p. 46
+Primary government report matching the four labels and definitions.
+Attribution boundary: The report does not label Level 4 as Ideal. Examples are our applications of the taxonomy.
+
+Polynomial trajectory planning
+References: Mellinger2011, Richter2016
+Location/topic: Minimum-snap planning; polynomial optimisation and time allocation
+Both original works are explicitly identified in the supplied material.
+Attribution boundary: Our A* plus polynomial combination is a proposed integration; Richter uses RRT* for its initial path.
+
+SLAM and PnP
+References: Cadena2016, Lepetit2009
+Location/topic: SLAM formulation; calibrated 3D-to-2D camera pose estimation
+Original review and method paper explicitly identified in the supplied material.
+Attribution boundary: Known deck geometry and marker installation are proposed application choices.
+
+Visual-inertial EKF, A* and YOLO
+References: Mourikis2007, Hart1968, Redmon2016
+Location/topic: Original algorithm papers
+Added primary sources for the named methods; exact slide provenance is not claimed.
+Attribution boundary: MSCKF supports camera/IMU estimation; GNSS updates and persistent mapping are separate integration choices.
+
+Behaviour-tree task logic
+References: Colledanchise2018
+Location/topic: Sequences, fallback, conditions and retry patterns
+Author-written foundational book added for task-logic support.
+Attribution boundary: The mission diagram is a flowchart; its proposed logic can be implemented as a behaviour tree.
+
+Moving-platform recovery
+References: Borowczyk2017
+Location/topic: Mobile-target estimation, rendezvous and relative tracking
+Additional primary study supporting the moving-recovery design.
+Attribution boundary: The exact touchdown taper, delivery mechanism and numerical gates remain proposed design choices.
+
+Concrete control and communications
+References: PX4, MAVLink
+Location/topic: Official controller diagrams and common message definitions
+Official technical documentation, accessed October 22, 2026.
+Attribution boundary: PX4 mixes P and PID loops. A command acknowledgement does not establish physical delivery or receipt of a custom delivery report.
+
+Full references with DOI or official links:
+
+Borowczyk, A., Nguyen, D.-T., Nguyen, A. P.-V., Nguyen, D. Q., Saussié, D., & Le Ny, J. (2017). Autonomous landing of a multirotor micro air vehicle on a high velocity ground vehicle. IFAC-PapersOnLine, 50(1), 10488-10494. https://doi.org/10.1016/j.ifacol.2017.08.1980
+
+Cadena, C., Carlone, L., Carrillo, H., Latif, Y., Scaramuzza, D., Neira, J., . . . Leonard, J. J. (2016). Past, present, and future of simultaneous localization and mapping: Toward the robust-perception age. IEEE Transactions on Robotics, 32(6), 1309-1332. https://doi.org/10.1109/TRO.2016.2624754
+
+Chen, B. M. (2022). On the trends of autonomous unmanned systems research. Engineering, 12, 20-23. https://doi.org/10.1016/j.eng.2021.10.014
+
+Colledanchise, M., & Ögren, P. (2018). Behavior trees in robotics and AI: An introduction. Boca Raton, FL: CRC Press. https://doi.org/10.1201/9780429489105
+
+Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). A formal basis for the heuristic determination of minimum cost paths. IEEE Transactions on Systems Science and Cybernetics, 4(2), 100-107. https://doi.org/10.1109/TSSC.1968.300136
+
+Lepetit, V., Moreno-Noguer, F., & Fua, P. (2009). EPnP: An accurate O(n) solution to the PnP problem. International Journal of Computer Vision, 81(2), 155-166. https://doi.org/10.1007/s11263-008-0152-6
+
+MAVLink. (n.d.). MAVLink common message set (common.xml). Retrieved October 22, 2026, from https://mavlink.io/en/messages/common.html
+
+Mellinger, D., & Kumar, V. (2011). Minimum snap trajectory generation and control for quadrotors. In 2011 IEEE International Conference on Robotics and Automation (pp. 2520-2525). Piscataway, NJ: IEEE. https://doi.org/10.1109/ICRA.2011.5980409
+
+Mourikis, A. I., & Roumeliotis, S. I. (2007). A multi-state constraint Kalman filter for vision-aided inertial navigation. In 2007 IEEE International Conference on Robotics and Automation (pp. 3565-3572). Piscataway, NJ: IEEE. https://doi.org/10.1109/ROBOT.2007.364024
+
+PX4. (n.d.). Controller diagrams. Retrieved October 22, 2026, from https://docs.px4.io/main/en/flight_stack/controller_diagrams
+
+Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. (2016). You only look once: Unified, real-time object detection. In 2016 IEEE Conference on Computer Vision and Pattern Recognition (pp. 779-788). Piscataway, NJ: IEEE. https://doi.org/10.1109/CVPR.2016.91
+
+Richter, C., Bry, A., & Roy, N. (2016). Polynomial trajectory planning for aggressive quadrotor flight in dense indoor environments. In M. Inaba & P. Corke (Eds.), Robotics research (Vol. 114, pp. 649-666). Cham, Switzerland: Springer. https://doi.org/10.1007/978-3-319-28872-7_37
+
+U.S. Department of Defense. (2011). Unmanned systems integrated roadmap FY2011-2036 (Corrected copy). Washington, DC: Author. Retrieved from https://digital.library.unt.edu/ark:/67531/metadc1982989/

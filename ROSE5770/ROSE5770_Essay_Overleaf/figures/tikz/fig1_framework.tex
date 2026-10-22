@@ -1,0 +1,82 @@
+% Original drawing. All labels are editable; no external images are required.
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  font=\sffamily\fontsize{8.5}{10.2}\selectfont,
+  box/.style={draw=blue!45!black,rounded corners=2pt,line width=0.65pt,
+    fill=blue!5,align=center,text width=2.35cm,minimum height=1.10cm,
+    inner sep=3pt},
+  feedbackbox/.style={box,draw=teal!55!black,fill=teal!8,
+    text width=3.40cm,minimum height=1.35cm},
+  flow/.style={-{Latex[length=2mm,width=1.35mm]},line width=0.70pt,
+    draw=black!75},
+  feedback/.style={-{Latex[length=2mm,width=1.35mm]},line width=0.70pt,
+    draw=teal!60!black},
+  bus/.style={line width=0.70pt,draw=teal!60!black},
+  lab/.style={align=center,fill=white,inner sep=1.5pt,
+    font=\sffamily\fontsize{8}{9.4}\selectfont,text=black!80}
+]
+  \node[box] (gcs) at (0,0)
+    {\textbf{GCS / HMI / AI}\\Mission interface};
+  \node[box] (task) at (4,0)
+    {\textbf{Mission / task}\\\textbf{planning}};
+  \node[box] (motion) at (8,0)
+    {\textbf{Motion planning}\\Path and trajectory};
+  \node[box] (control) at (12,0)
+    {\textbf{Control + model}\\Tracking and stability};
+
+  \node[box,fill=teal!5,draw=teal!55!black,minimum height=1.35cm]
+    (results) at (0,-4.10)
+    {\textbf{Data processing}\\Application results};
+  \node[feedbackbox] (perception) at (6,-4.10)
+    {\textbf{Perception +}\\\textbf{positioning/SLAM}\\
+      State, map and task observations};
+  \node[box,fill=black!4,draw=black!60,minimum height=1.35cm]
+    (platform) at (12,-4.10)
+    {\textbf{Vehicle + sensors}\\Hardware platform};
+
+  % Forward command path.
+  \draw[flow] (gcs.east) -- node[lab,above=2pt,text width=1.18cm]
+    {goal +\\limits} (task.west);
+  \draw[flow] (task.east) -- node[lab,above=2pt] {task} (motion.west);
+  \draw[flow] (motion.east) -- node[lab,above=2pt]
+    {$p_d,v_d,a_d$} (control.west);
+  \draw[flow] (control.east) -- (13.72,0) --
+    node[lab,rotate=90,above=1pt] {actuator commands}
+    (13.72,-4.10) -- (platform.east);
+
+  % Task feasibility and execution feedback.
+  \draw[feedback] (motion.north) -- (8,1.27) --
+    node[lab,above=2pt] {feasibility and progress}
+    (4,1.27) -- (task.north);
+
+  % Sensor observations and application results.
+  \draw[flow] (platform.west) --
+    node[lab,above=2pt,text width=1.85cm] {sensor measurements}
+    (perception.east);
+  \draw[flow] (perception.west) --
+    node[lab,above=2pt,text width=1.85cm] {application observations}
+    (results.east);
+  \draw[flow] (results.north) --
+    node[lab,right=3pt,text width=1.30cm] {reports\\and status}
+    (gcs.south);
+
+  % Estimated outputs are routed to the modules that consume them.
+  \draw[bus] (perception.north) -- (6,-2.20);
+  \draw[bus] (4,-2.20) -- (12,-2.20);
+  \fill[teal!60!black] (6,-2.20) circle (1.2pt);
+  \fill[teal!60!black] (8,-2.20) circle (1.2pt);
+  \draw[feedback] (4,-2.20) --
+    node[lab,left=3pt,text width=1.62cm] {target status,\\task events}
+    (task.south);
+  \draw[feedback] (8,-2.20) --
+    node[lab,left=3pt,text width=1.62cm] {state, map,\\obstacles}
+    (motion.south);
+  \draw[feedback] (12,-2.20) --
+    node[lab,left=3pt,text width=1.62cm] {estimated\\state}
+    (control.south);
+
+  \node[lab,text=black!65,align=center,text width=13.50cm]
+    at (6,-5.60)
+    {Communication and energy support every module.\\
+     $p_d,v_d,a_d$: desired position, velocity and acceleration.};
+\end{tikzpicture}

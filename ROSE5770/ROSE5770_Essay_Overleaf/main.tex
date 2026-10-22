@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=21mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs,array,tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,shapes.geometric,backgrounds}
+\usepackage{caption}
+\usepackage{float}
+\usepackage[round,authoryear,longnamesfirst]{natbib}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{placeins}
+\usepackage{needspace}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\definecolor{ink}{HTML}{16334B}
+\definecolor{accent}{HTML}{197A83}
+\captionsetup{font=small,labelfont=bf,skip=7pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\clubpenalty=10000
+\widowpenalty=10000
+\setlength{\emergencystretch}{2em}
+\renewcommand{\baselinestretch}{1.03}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\bottomfraction}{.95}
+\renewcommand{\textfraction}{.05}
+\renewcommand{\floatpagefraction}{.85}
+\setlength{\textfloatsep}{12pt}
+\setlength{\floatsep}{12pt}
+\setlength{\intextsep}{12pt}
+\setlength{\bibsep}{7pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily ROSE5770\quad Individual Assessment}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\input{metadata.tex}
+
+% Automatic replacement interface. Search order: PDF, PNG, JPG, JPEG.
+% Missing replacement images fall back to the supplied editable source.
+\newcommand{\ReplacementImage}[1]{%
+  \includegraphics[width=.98\linewidth,height=.64\textheight,keepaspectratio]{#1}%
+}
+\newcommand{\ReplaceableGraphic}[2]{%
+  \IfFileExists{replacements/#1.pdf}{\ReplacementImage{replacements/#1.pdf}}{%
+  \IfFileExists{replacements/#1.png}{\ReplacementImage{replacements/#1.png}}{%
+  \IfFileExists{replacements/#1.jpg}{\ReplacementImage{replacements/#1.jpg}}{%
+  \IfFileExists{replacements/#1.jpeg}{\ReplacementImage{replacements/#1.jpeg}}{#2}}}}%
+}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries\color{ink} ROSE5770 Individual Assessment}\\[5pt]
+\end{center}
+\begin{tabular}{@{}ll@{}}
+Name: & \StudentName\\[5pt]
+Student ID: & \StudentID
+\end{tabular}
+
+\input{sections/q1.tex}
+\FloatBarrier
+\vspace{4mm}
+\input{sections/q2.tex}
+\FloatBarrier
+\clearpage
+\input{references.tex}
+\end{document}

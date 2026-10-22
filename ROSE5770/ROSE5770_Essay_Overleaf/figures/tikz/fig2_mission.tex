@@ -1,0 +1,75 @@
+\begin{tikzpicture}[
+  font=\sffamily\fontsize{8.5}{10.2}\selectfont,
+  stage/.style={draw=black!65,rounded corners=2pt,fill=blue!3,
+    line width=.65pt,text width=3.15cm,minimum height=1.0cm,align=center,
+    inner xsep=5pt,inner ysep=5pt},
+  gate/.style={diamond,aspect=1.6,draw=orange!65!black,fill=orange!8,
+    line width=.7pt,text width=1.65cm,align=center,inner sep=1pt},
+  note/.style={draw=black!45,rounded corners=2pt,fill=black!2,
+    line width=.5pt,text width=3.15cm,minimum height=.72cm,align=center,
+    inner sep=4pt},
+  flow/.style={-{Latex[length=2.1mm,width=1.4mm]},line width=.8pt,
+    draw=blue!50!black},
+  feedback/.style={-{Latex[length=2mm,width=1.3mm]},line width=.65pt,
+    draw=orange!70!black,dashed},
+  edge/.style={font=\sffamily\fontsize{8}{9.5}\selectfont,
+    fill=white,inner sep=2pt,align=center}
+]
+  \node[stage] (ready) at (0,0)
+    {\textbf{Readiness checks}\\Payload, localisation,\\route and reserve};
+  \node[stage] (launch) at (4.8,0)
+    {\textbf{Launch from the UGV}\\Match deck velocity;\\climb clear};
+  \node[stage] (search) at (9.6,0)
+    {\textbf{Transit and search}\\Reach building;\\scan target fa\c{c}ade};
+
+  \node[gate] (check) at (9.6,-2.1)
+    {Correct target\\and clear\\area?};
+  \node[stage] (deliver) at (4.8,-2.1)
+    {\textbf{Approach and delivery}\\Stable placement;\\controlled release};
+  \node[stage] (verify) at (0,-2.1)
+    {\textbf{Verify delivery}\\Camera; payload sensor;\\record success/failure};
+
+  \node[stage] (report) at (0,-4.4)
+    {\textbf{Send delivery record}\\Outcome, time, target ID;\\track receipt status};
+  \node[stage] (meet) at (4.8,-4.4)
+    {\textbf{Update rendezvous}\\UGV pose and velocity;\\check timestamps};
+  \node[stage] (recover) at (9.6,-4.4)
+    {\textbf{Track and recover}\\Align; match velocity;\\descend to contact};
+
+  \draw[flow] (ready) -- (launch);
+  \draw[flow] (launch) -- (search);
+  \draw[flow] (search) -- (check);
+  \draw[flow] (check) -- node[edge,above]{Yes} (deliver);
+  \draw[flow] (deliver) -- (verify);
+  \draw[flow] (verify) -- (report);
+  \draw[flow] (report) -- node[edge,above]{Return} (meet);
+  \draw[flow] (meet) -- (recover);
+
+  \coordinate (retryfork) at (11.85,-2.1);
+  \draw[feedback] (check.east) -- node[edge,above]{No} (retryfork);
+  \draw[feedback] (retryfork) -- (11.85,.95)
+    -- node[edge,above]{Retry within budget} (9.6,.95) -- (search.north);
+
+  \node[note] (receipt) at (0,-5.85)
+    {No ACK: retain report;\\retry within budget.};
+  \draw[feedback,draw=black!55] (report.south) --
+    node[edge,right]{In parallel} (receipt.north);
+
+  \node[note] (around) at (9.6,-5.85)
+    {Unsafe: go around\\if energy reserve permits.};
+  \draw[feedback] (recover.south) -- (around.north);
+  \draw[feedback] (around.west) -- (7.2,-5.85) -- (7.2,-5.45)
+    -- node[edge,above]{Retry} (4.8,-5.45) -- (meet.south);
+
+  \node[note,text width=12.6cm,minimum height=.7cm,fill=orange!5,
+        draw=orange!65!black] (fallback) at (4.8,-7.2)
+    {\textbf{Safety fallback:} cancel release; return safely or use a designated alternative landing site.};
+  \draw[feedback] (retryfork) -- (11.85,-7.2) -- (fallback.east);
+  \node[edge,text width=1.2cm] at (12.6,-3.1) {Budget\\exhausted};
+  \draw[feedback] (around.south) --
+    node[edge,right]{Otherwise} (9.6,-6.82);
+
+  \node[align=left,font=\sffamily\fontsize{8}{9.5}\selectfont,
+        text width=3.8cm] at (4.8,-6.15)
+    {Report receipt and physical\\delivery are separate states.};
+\end{tikzpicture}

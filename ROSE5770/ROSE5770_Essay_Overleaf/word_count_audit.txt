@@ -1,0 +1,12 @@
+WORD-COUNT AUDIT
+The 800-word limit applies to both subparts of each question combined.
+
+Main count: all English body prose and rendered APA citations. Hyphenated compounds count as one.
+Additional conservative count: split hyphenated compounds and include question/subquestion headings.
+Tables, diagrams/captions, references, name/ID and the word-count statement are excluded.
+
+Q1 main count: 654
+Q1 conservative count: 676
+
+Q2 main count: 646
+Q2 conservative count: 673
